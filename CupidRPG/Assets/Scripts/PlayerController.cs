@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour, Entity
     Camera cam;
     Fighter fighter;
     bool isMoving = false;
+    [SerializeField] float hpDecSpeed;
 
     
     private void Awake()
@@ -19,10 +20,12 @@ public class PlayerController : MonoBehaviour, Entity
 
     void FixedUpdate()
     {
-        if (health.IsDead() || !GameManager.isGameStart)
+        if (health.IsDead() || !GameManager.Instance.isGameStart)
         {
             return;
         }
+        health.GetDamage(hpDecSpeed*Time.deltaTime);
+
         PlayerAttack();
         if (fighter.IsAttacking())
             return;

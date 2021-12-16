@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class AIController : MonoBehaviour, Entity
 {
+    public static int enemyCount;
+    public static int enemyDeathCount=31;
     [SerializeField]
     GameObject player;
     Movement movement;
@@ -14,13 +16,15 @@ public class AIController : MonoBehaviour, Entity
     public float chaseDistance = 20;
     void Awake()
     {
+        ++enemyCount;
+        Debug.Log(enemyCount);
         movement = GetComponent<Movement>();
         health = GetComponent<Health>();
     }
     void Update()
     {
         attackBetweenTime += Time.deltaTime;
-        if (health.IsDead() || !GameManager.isGameStart)
+        if (health.IsDead() || !GameManager.Instance.isGameStart)
         {
             return;
         }

@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour
     public float lifetimeOrg;
     private float lifetime;
     public float speed;
+    public float damage;
     private void Update()
     {
         transform.Translate(0, 0, speed*Time.deltaTime);
@@ -20,7 +21,7 @@ public class Projectile : MonoBehaviour
         Health health = other.GetComponent<Health>();
         if (health && !other.CompareTag("Player"))
         {
-            health.GetDamage(20);
+            health.GetDamage(damage + Random.Range(-5,10));
             Debug.Log("r공격!");
             Destroy(gameObject);
         }

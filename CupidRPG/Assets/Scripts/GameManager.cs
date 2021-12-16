@@ -3,13 +3,40 @@
 
 public class GameManager : MonoBehaviour
 {
+    private static GameManager _instance = null;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType(typeof(GameManager)) as GameManager;
+                if (_instance == null)
+                {
+                    _instance = new GameObject("Singleton of " + typeof(GameManager).ToString(), typeof(GameManager)).GetComponent<GameManager>();
+                }
+
+            }
+            return _instance;
+        }
+    }
+
+
     //[SerializeField] private InputAction action;
-    public static bool isGameStart = false;
-    public static bool isGameEnd = false;
+    public  bool isGameStart = false;
+    public  bool isGameEnd = false;
     bool isSettingOn = false;
 
     [SerializeField] GameObject setting;
-
+    [SerializeField] GameObject EndUI;
+    private void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this as GameManager;
+        }
+    }
     private void Start()
     {
         FindObjectOfType<CameraSwitcher>().SwitchState();
@@ -29,13 +56,13 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         FindObjectOfType<CameraSwitcher>().SwitchState();
     }
-    public void GameEnd()
+    public  void GameEnd()
     {
         FindObjectOfType<CameraSwitcher>().SwitchState();
+        EndUI.SetActive(true);
         isGameEnd = true;
         Cursor.lockState = CursorLockMode.None;
     }
-
     public void Update()
     {
         //if (Input.GetKeyDown(KeyCode.Escape)) SettingONOFF();

@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        FindObjectOfType<CameraSwitcher>().SwitchState();
+        //FindObjectOfType<CameraSwitcher>().SwitchState();
         //action.performed += _ => SettingONOFF();
     }
     private void OnEnable()
@@ -54,11 +54,11 @@ public class GameManager : MonoBehaviour
     {
         isGameStart = true;
         Cursor.lockState = CursorLockMode.Locked;
-        FindObjectOfType<CameraSwitcher>().SwitchState();
+        //FindObjectOfType<CameraSwitcher>().SwitchState();
     }
     public  void GameEnd()
     {
-        FindObjectOfType<CameraSwitcher>().SwitchState();
+        //FindObjectOfType<CameraSwitcher>().SwitchState();
         EndUI.SetActive(true);
         isGameEnd = true;
         Cursor.lockState = CursorLockMode.None;

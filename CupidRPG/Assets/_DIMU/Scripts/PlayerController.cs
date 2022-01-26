@@ -8,8 +8,9 @@ public class PlayerController : MonoBehaviour, Entity
     Fighter fighter;
     bool isMoving = false;
     [SerializeField] float hpDecSpeed;
+    [SerializeField] float[] chargeTimes;
+    float chargetime = 0;
 
-    
     private void Awake()
     {
         fighter = GetComponent<Fighter>();
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour, Entity
         {
             return;
         }
-        DecreaseHP();
+        //DecreaseHP();
 
         PlayerAttack();
         if (fighter.IsAttacking())
@@ -57,7 +58,45 @@ public class PlayerController : MonoBehaviour, Entity
     }
     private void PlayerAttack()
     {
-        if (!fighter.IsAttacking() && Input.GetMouseButtonDown(0))
-            fighter.ShootTriggerOn();
+        if (Input.GetMouseButtonDown(1))
+        {
+            CameraManager.Instance.CameraSwitch(CameraType.Aim);
+        }
+
+
+        else if (Input.GetMouseButton(1))
+        {
+            CameraManager.Instance.CameraSwitch(CameraType.Aim);
+            chargetime += Time.deltaTime;
+            if(chargetime<chargeTimes[0])
+            {
+                AimImageManager.Instance.ChangeChargeColor(0);
+            }
+            else if(chargetime < chargeTimes[1])
+            {
+                AimImageManager.Instance.ChangeChargeColor(1);
+                fighter.PowerUp(20);
+
+            }
+            else if(chargetime < chargeTimes[2])
+            {
+                AimImageManager.Instance.ChangeChargeColor(2);
+                fighter.PowerUp(40);
+            }
+
+            if (!fighter.IsAttacking() && Input.GetMouseButtonDown(0))
+            {
+                fighter.ShootTriggerOn();
+                chargetime = 0;
+            }
+        }
+        else
+        //if (Input.GetMouseButtonUp(1))
+        {
+            CameraManager.Instance.CameraSwitch(CameraType.Default);
+            AimImageManager.Instance.ChangeChargeColor(0);
+            chargetime = 0;
+            fighter.ResetPower();
+        }
     }
 }

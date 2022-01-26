@@ -225,6 +225,7 @@ MonoBehaviour:
   lifetimeOrg: 5
   speed: 30
   damage: 20
+  addDamage: 0
 --- !u!65 &1327050488430497924
 BoxCollider:
   m_ObjectHideFlags: 0

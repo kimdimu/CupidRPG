@@ -8,6 +8,7 @@ public class Projectile : MonoBehaviour
     private float lifetime;
     public float speed;
     public float damage;
+    public float addDamage;
     private void Update()
     {
         transform.Translate(0, 0, speed*Time.deltaTime);
@@ -16,12 +17,17 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
     }
 
+    public void SetAddPower(float power)
+    {
+        addDamage = power;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         Health health = other.GetComponent<Health>();
         if (health && !other.CompareTag("Player"))
         {
-            health.GetDamage(damage + Random.Range(-5,10));
+            health.GetDamage(damage + addDamage + Random.Range(-5,10));
             Destroy(gameObject);
         }
     }

@@ -6,11 +6,11 @@ public class Fighter : MonoBehaviour
     [SerializeField]
     private Transform hand; //공격할 손
     [SerializeField]
-    private GameObject projectiles; //총알
+    private Projectile projectiles; //총알
     [SerializeField]
     Camera cam; //에이밍을 위한 카메라
-    [SerializeField]
-    private GameObject aimImg;//에임 이미지 >>따로 뺄 듯
+    float addAttackPower;
+
 
     int layerMask =  ~(1 << 8);
 
@@ -23,20 +23,31 @@ public class Fighter : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, 10000, layerMask))
         {
-            GameObject projectile = Instantiate(projectiles, hand.position, Quaternion.identity) as GameObject;
+            GameObject projectile = Instantiate(projectiles.gameObject, hand.position, Quaternion.identity) as GameObject;
+            projectile.GetComponent<Projectile>().SetAddPower(addAttackPower);
             projectile.transform.LookAt(hit.point);
             Debug.Log("non Player " + hit.point + " " + hit.collider.name);
         }
         else
         {
-            GameObject projectile = Instantiate(projectiles, hand.position, Quaternion.identity) as GameObject;
+            GameObject projectile = Instantiate(projectiles.gameObject, hand.position, Quaternion.identity) as GameObject;
+            projectile.GetComponent<Projectile>().SetAddPower(addAttackPower);
             projectile.transform.rotation = cam.transform.rotation;
             Debug.Log("Player or non");
         }
+        ResetPower();
     }
     public void Hit()
     {
 
+    }
+    public void PowerUp(float power)
+    {
+        addAttackPower = power;
+    }
+    public void ResetPower()
+    {
+        addAttackPower = 0;
     }
     public void ShootTriggerOn()
     {

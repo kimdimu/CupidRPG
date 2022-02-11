@@ -5,6 +5,7 @@ public interface IInteractable
     void Interact();
     void CanInteract();
     void EndInteract();
+    Transform ReturnTF();
 }
 //public interface IDialogueable : IInteractable
 //{

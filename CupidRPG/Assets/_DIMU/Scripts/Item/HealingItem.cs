@@ -1,28 +1,33 @@
 ﻿using UnityEngine;
 
-public class HealingItem : InteractableObject
+public class HealingItem : MonoBehaviour, IInteractable
 {
     [SerializeField] int healAmount;
     Health health;
-    public override void CanInteract()
+    public void CanInteract()
     {
         //상호작용 UI 띄우기
         InputManager.Instance.OnPressFDown += Interact;
         print("CanInteract");
     }
 
-    public override void EndInteract()
+    public void EndInteract()
     {
         InputManager.Instance.OnPressFDown -= Interact;
         print("EndInteract");
     }
 
-    public override void Interact()
+    public void Interact()
     {
         //상호작용 UI 접기
         health.GetDamage(-healAmount);
         EndInteract();
         print("Interact");
+    }
+
+    public Transform ReturnTF()
+    {
+        return transform;
     }
 
     private void OnCollisionEnter(Collision collision)

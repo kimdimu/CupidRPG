@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class PlayerCollision : MonoBehaviour
 {
-    [SerializeField] List<InteractableObject> interacts = new List<InteractableObject>();
-    InteractableObject closestObj;
+    [SerializeField] List<IInteractable> interacts = new List<IInteractable>();
+    IInteractable closestObj;
 
     public void OnTriggerEnter(Collider other)
     {
-        InteractableObject interactable = other.GetComponent<InteractableObject>();
+        IInteractable interactable = other.GetComponent<IInteractable>();
         if (interactable != null)
         {
             interacts.Add(interactable);
@@ -16,7 +16,7 @@ public class PlayerCollision : MonoBehaviour
     }
     public void OnTriggerExit(Collider other)
     {
-        InteractableObject interactable = other.GetComponent<InteractableObject>();
+        IInteractable interactable = other.GetComponent<IInteractable>();
         if (interactable != null)
         {
             interacts.Remove(interactable);
@@ -28,6 +28,7 @@ public class PlayerCollision : MonoBehaviour
     }
     public void LightClosestObj()
     {
+        if (interacts.Count < 0) return;
         DistChect();
         closestObj.CanInteract();
     }
@@ -37,7 +38,7 @@ public class PlayerCollision : MonoBehaviour
 
         foreach (var item in interacts)
         {
-            float dist = Vector3.Distance(transform.position, item.transform.position);
+            float dist = Vector3.Distance(transform.position, item.ReturnTF().position);
             if (dist < shortestDist)
             {
                 shortestDist = dist;

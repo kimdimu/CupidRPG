@@ -5,6 +5,7 @@ public class PlayerCollision : MonoBehaviour
 {
     [SerializeField] List<IInteractable> interacts = new List<IInteractable>();
     IInteractable closestObj;
+    public GameObject collisionUI;
 
     public void OnTriggerEnter(Collider other)
     {
@@ -28,9 +29,18 @@ public class PlayerCollision : MonoBehaviour
     }
     public void LightClosestObj()
     {
-        if (interacts.Count < 0) return;
+        if (interacts.Count == 0)
+        {
+            collisionUI.SetActive(false);
+            return;
+        }
+        collisionUI.SetActive(true);
+
         DistChect();
-        closestObj.CanInteract();
+        closestObj.CanInteract(gameObject.transform.parent.gameObject);
+
+        Vector3 uiPos = new Vector3(closestObj.ReturnTF().position.x, closestObj.ReturnTF().position.y + 4, closestObj.ReturnTF().position.z);
+        collisionUI.transform.position = Camera.main.WorldToScreenPoint(uiPos);
     }
     public void DistChect()
     {

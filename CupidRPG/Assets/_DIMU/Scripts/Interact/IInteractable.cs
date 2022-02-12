@@ -3,7 +3,7 @@
 public interface IInteractable
 {
     void Interact();
-    void CanInteract();
+    void CanInteract(GameObject player);
     void EndInteract();
     Transform ReturnTF();
 }

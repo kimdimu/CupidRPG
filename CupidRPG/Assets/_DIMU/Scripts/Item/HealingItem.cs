@@ -4,16 +4,19 @@ public class HealingItem : MonoBehaviour, IInteractable
 {
     [SerializeField] int healAmount;
     Health health;
-    public void CanInteract()
+
+    public void CanInteract(GameObject player)
     {
         //상호작용 UI 띄우기
-        InputManager.Instance.OnPressFDown += Interact;
-        print("CanInteract");
+        if (!health)
+            health = player.GetComponent<Health>();
+        InputManager.Instance.OnPressFDown = Interact;
+        print("CanInteract " + gameObject.name);
     }
 
     public void EndInteract()
     {
-        InputManager.Instance.OnPressFDown -= Interact;
+        //InputManager.Instance.OnPressFDown -= Interact;
         print("EndInteract");
     }
 
@@ -21,8 +24,8 @@ public class HealingItem : MonoBehaviour, IInteractable
     {
         //상호작용 UI 접기
         health.GetDamage(-healAmount);
-        EndInteract();
         print("Interact");
+        EndInteract();
     }
 
     public Transform ReturnTF()
@@ -32,11 +35,10 @@ public class HealingItem : MonoBehaviour, IInteractable
 
     private void OnCollisionEnter(Collision collision)
     {
-        Health health = collision.gameObject.GetComponent<Health>();
         Debug.Log("추돌");
         if (health && collision.collider.CompareTag("Player"))
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 }

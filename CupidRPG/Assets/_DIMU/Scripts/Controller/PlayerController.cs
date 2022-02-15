@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour, Entity
 {
@@ -20,7 +19,7 @@ public class PlayerController : MonoBehaviour, Entity
     }
     private void Update()
     {
-        if (health.IsDead() || !GameManager.Instance.isGameStart)   return;
+        if (health.IsDead() || !GameManager.Instance.isGameStart) return;
         PlayerAttack();
         if (fighter.IsAttacking())
             return;
@@ -66,24 +65,26 @@ public class PlayerController : MonoBehaviour, Entity
             CameraManager.Instance.CameraSwitch(CameraType.Aim);
             AimImageManager.Instance.AimUIOnOff(true);
             print("Down");
+            fighter.ShootTrigger();
         }
 
 
         if (Input.GetMouseButton(1))
         {
+            fighter.ShootInteger(1);
             chargetime += Time.deltaTime;
-            if(chargetime<chargeTimes[0])
+            if (chargetime < chargeTimes[0])
             {
                 AimImageManager.Instance.ChangeChargeColor(0);
                 fighter.AdditionalPowerSetting(0);
             }
-            else if(chargetime < chargeTimes[1])
+            else if (chargetime < chargeTimes[1])
             {
                 AimImageManager.Instance.ChangeChargeColor(1);
                 fighter.AdditionalPowerSetting(20);
 
             }
-            else if(chargetime < chargeTimes[2])
+            else if (chargetime < chargeTimes[2])
             {
                 AimImageManager.Instance.ChangeChargeColor(2);
                 fighter.AdditionalPowerSetting(40);
@@ -91,14 +92,16 @@ public class PlayerController : MonoBehaviour, Entity
 
             if (!fighter.IsAttacking() && Input.GetMouseButtonDown(0))
             {
-                fighter.ShootTriggerOn();
+                print("IsAttacking");
+
+                fighter.ShootInteger(2);
+                fighter.AttackStart();
                 chargetime = 0;
             }
-            print("Ing");
-
         }
         if (Input.GetMouseButtonUp(1))
         {
+            fighter.ShootInteger(0);
             AimImageManager.Instance.AimUIOnOff(false);
             CameraManager.Instance.CameraSwitch(CameraType.Default);
             AimImageManager.Instance.ChangeChargeColor(0);

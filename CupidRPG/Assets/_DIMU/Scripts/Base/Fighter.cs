@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Fighter : MonoBehaviour
@@ -8,12 +9,13 @@ public class Fighter : MonoBehaviour
     private Transform hand; //공격할 손
     [SerializeField]
     private Projectile[] projectiles; //총알
-    private int projectileCount=0; //총알
+    private int projectileCount = 0; //총알
     [SerializeField]
     Camera cam; //에이밍을 위한 카메라
     [SerializeField]
     Image iconImage; //에이밍을 위한 카메라
     float addAttackPower;
+    float attackCool = 1;
 
 
     int layerMask = ~(1 << 8);
@@ -61,12 +63,32 @@ public class Fighter : MonoBehaviour
     {
         addAttackPower = power;
     }
-    public void ShootTriggerOn()
+    public void ShootInteger(int num)
     {
-        GetComponent<Animator>().SetTrigger("Attack1");
-        isAttaking = true;
+        GetComponent<Animator>().SetInteger("FIreAni", num);
     }
 
+    public void ShootTrigger()
+    {
+        GetComponent<Animator>().ResetTrigger("Attack1");
+        GetComponent<Animator>().SetTrigger("Attack1");
+    }
+
+    public void AttackStart()
+    {
+        isAttaking = true;
+        StartCoroutine(CoolDown());
+    }
+    IEnumerator CoolDown()
+    {
+        float cool = 0;
+        while (cool < attackCool)
+        {
+            cool += Time.deltaTime;
+            yield return null;
+        }
+        isAttaking = false;
+    }
     public void AttackEnd()
     {
         GetComponent<Animator>().ResetTrigger("Attack1");

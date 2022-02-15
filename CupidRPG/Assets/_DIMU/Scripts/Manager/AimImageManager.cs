@@ -1,25 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class AimImageManager : MonoBehaviour
+public class AimImageManager : Singleton<AimImageManager>
 {
-    private static AimImageManager _instance = null;
-    public static AimImageManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType(typeof(AimImageManager)) as AimImageManager;
-                if (_instance == null)
-                {
-                    _instance = new GameObject("Singleton of " + typeof(AimImageManager).ToString(), typeof(AimImageManager)).GetComponent<AimImageManager>();
-                }
-
-            }
-            return _instance;
-        }
-    }
 
     [SerializeField]
     Image aimImage;

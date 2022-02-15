@@ -226,6 +226,7 @@ MonoBehaviour:
   speed: 30
   damage: 20
   addDamage: 0
+  icon: {fileID: 21300000, guid: eb5f6e2757c821940b69cf1456f7865a, type: 3}
 --- !u!65 &1327050488430497924
 BoxCollider:
   m_ObjectHideFlags: 0

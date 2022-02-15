@@ -3,25 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-public class CameraManager : MonoBehaviour
+public class CameraManager : Singleton<CameraManager>
 {
-    private static CameraManager _instance = null;
-    public static CameraManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType(typeof(CameraManager)) as CameraManager;
-                if (_instance == null)
-                {
-                    _instance = new GameObject("Singleton of " + typeof(CameraManager).ToString(), typeof(CameraManager)).GetComponent<CameraManager>();
-                }
-
-            }
-            return _instance;
-        }
-    }
 
     public Animator cameraAnimator;
     public GameObject[] cameraList;

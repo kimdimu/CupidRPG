@@ -7,6 +7,7 @@ public class Projectile : MonoBehaviour, Entity
     public float speed;
     public float damage;
     public float addDamage;
+    public Sprite icon;
     private void Update()
     {
         transform.Translate(0, 0, speed * Time.deltaTime);

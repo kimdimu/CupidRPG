@@ -1,27 +1,11 @@
 ﻿using UnityEngine;
 
-public class InputManager : MonoBehaviour
+//키보드 인풋 관리
+public class InputManager : Singleton<InputManager>
 {
     public delegate void InputEvent();
     public InputEvent OnPressFDown;
-
-    private static InputManager _instance = null;
-    public static InputManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType(typeof(InputManager)) as InputManager;
-                if (_instance == null)
-                {
-                    _instance = new GameObject("Singleton of " + typeof(InputManager).ToString(), typeof(InputManager)).GetComponent<InputManager>();
-                }
-
-            }
-            return _instance;
-        }
-    }
+    public InputEvent OnPressLeftShiftDown;
 
     void Update()
     {
@@ -29,6 +13,11 @@ public class InputManager : MonoBehaviour
         {
             print("상호작용");
             OnPressFDown();
+        }
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            print("화살 변경");
+            OnPressLeftShiftDown();
         }
     }
 }

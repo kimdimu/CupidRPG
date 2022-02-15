@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c69cc565cdecf4c8446285d14f3d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionUI: {fileID: 0}
 --- !u!1 &8040732763967237312
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,8 +559,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hand: {fileID: 8040732763967140202}
-  projectiles: {fileID: 0}
+  projectiles:
+  - {fileID: 0}
   cam: {fileID: 0}
+  iconImage: {fileID: 0}
 --- !u!1 &8040732763967237376
 GameObject:
   m_ObjectHideFlags: 0

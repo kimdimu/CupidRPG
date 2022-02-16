@@ -10093,6 +10093,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SK_BowS2
       objectReference: {fileID: 0}
+    - target: {fileID: 7687954646514596695, guid: baf832ada3b70b04c82bd9ab8ad98155,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: baf832ada3b70b04c82bd9ab8ad98155, type: 3}
 --- !u!4 &1446888017297470759 stripped

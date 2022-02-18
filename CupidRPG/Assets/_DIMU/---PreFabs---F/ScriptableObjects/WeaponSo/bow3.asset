@@ -15,5 +15,5 @@ MonoBehaviour:
   iconFab: {fileID: 7687954646514596695, guid: 3ad61307b53aaf9438963d30996d9f20, type: 3}
   realWeaponFab: {fileID: 7687954646514596695, guid: 3ad61307b53aaf9438963d30996d9f20,
     type: 3}
-  weaponDamage: 0
-  weaponAttackSpeed: 0
+  weaponDamage: 50
+  weaponAttackSpeed: 5

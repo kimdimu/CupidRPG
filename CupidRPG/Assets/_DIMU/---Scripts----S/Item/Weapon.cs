@@ -4,6 +4,10 @@
 public class Weapon : ItemSo
 {
     [SerializeField]
+    string weaponName;
+    [SerializeField]
+    string weaponExplain;
+    [SerializeField]
     GameObject realWeaponFab;//손에 쥘 무기 모델링
     [SerializeField]
     float weaponDamage; //무기 공격력

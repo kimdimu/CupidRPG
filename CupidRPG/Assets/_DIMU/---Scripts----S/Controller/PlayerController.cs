@@ -101,15 +101,19 @@ public class PlayerController : MonoBehaviour, Entity
         }
         if (Input.GetMouseButtonUp(1))
         {
-            fighter.ShootInteger(0);
-            AimImageManager.Instance.AimUIOnOff(false);
-            CameraManager.Instance.CameraSwitch(CameraType.Default);
-            AimImageManager.Instance.ChangeChargeColor(0);
-            chargetime = 0;
-            fighter.AdditionalPowerSetting(0);
-            print("Up");
+            StopCharging();
 
         }
     }
 
+    private void StopCharging()
+    {
+        fighter.ShootInteger(0);
+        AimImageManager.Instance.AimUIOnOff(false);
+        CameraManager.Instance.CameraSwitch(CameraType.Default);
+        AimImageManager.Instance.ChangeChargeColor(0);
+        chargetime = 0;
+        fighter.AdditionalPowerSetting(0);
+        print("Up");
+    }
 }

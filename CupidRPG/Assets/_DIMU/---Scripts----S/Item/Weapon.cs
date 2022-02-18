@@ -18,4 +18,6 @@ public class Weapon : ItemSo
     {
         Instantiate(realWeaponFab, handpos);
     }
+    public float AdditionalAttackSpeed() => weaponAttackSpeed;
+    public float AdditionalWeaponDamage() => weaponDamage;
 }

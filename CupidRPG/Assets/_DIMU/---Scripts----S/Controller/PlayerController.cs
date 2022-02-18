@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour, Entity
         if (Input.GetMouseButton(1))
         {
             fighter.ShootInteger(1);
-            chargetime += Time.deltaTime;
+            chargetime = chargetime + Time.deltaTime + fighter.AttackSpeed()*0.01f;
             if (chargetime < chargeTimes[0])
             {
                 AimImageManager.Instance.ChangeChargeColor(0);

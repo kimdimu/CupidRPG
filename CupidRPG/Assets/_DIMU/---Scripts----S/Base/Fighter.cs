@@ -32,7 +32,6 @@ public class Fighter : MonoBehaviour
         UpdateIconSprite();
 
         AddWeapon(defaultWeapon);
-        ChangeWeapon(curWeaponIdx, 0);
     }
 
     public void AddWeapon(Weapon newWeapon)
@@ -41,9 +40,13 @@ public class Fighter : MonoBehaviour
         weaponList.Add(newWeapon);
         ChangeWeapon(weaponList.Count - 1, 0);
     }
+    public float AttackSpeed()
+    {
+        return weaponList[curWeaponIdx].AdditionalAttackSpeed();
+    }
     public void ChangeWeapon(int idx, int type)
     {
-        if (idx > weaponList.Count) return;
+        if (idx > weaponList.Count || idx == curWeaponIdx) return;
         if (type == 0)
             curWeaponIdx = idx;
         else if (type == 1)
@@ -63,12 +66,15 @@ public class Fighter : MonoBehaviour
             }
         }
         print("현재 무기 " + curWeaponIdx + " ," + weaponList.Count);
+        ChangeFab();
     }
-    public void ChangeWeaponAddMin(int idx)
+
+    private void ChangeFab()
     {
-        curWeaponIdx = +idx;
-        print("현재 무기 " + curWeaponIdx);
+        Destroy(hand.GetChild(0).gameObject);
+        weaponList[curWeaponIdx].InstantiateHandWeapon(hand);
     }
+
     public void ChangeArrow()
     {
         if (++projectileCount >= projectiles.Length) projectileCount = 0;
@@ -104,7 +110,7 @@ public class Fighter : MonoBehaviour
     }
     public void AdditionalPowerSetting(float power)
     {
-        addAttackPower = power;
+        addAttackPower = power + weaponList[curWeaponIdx].AdditionalWeaponDamage();
     }
     public void ShootInteger(int num)
     {
